@@ -1,0 +1,109 @@
+package UserLogic;
+
+import java.time.LocalDate;
+
+import javax.swing.JOptionPane;
+
+import Exceptions.DateException;
+import Exceptions.PetException;
+
+public class Employee extends User {
+	
+	private static Employee employee;
+	
+	public static final int REALIZAR_ADOPCION = 0;
+	
+	public static final int INGRESAR_MASCOTA = 1;
+	
+	public static final int VER_ADOPCIONES = 2;
+	
+	public static final int MASCOTAS_SIN_DUEÑO = 3;
+	
+	public static final int VER_CLIENTES = 4;
+
+	public static final int SALIR = 5;
+	
+	public Employee(String name, String dni, int age) {
+		super(name, dni, age);
+	}
+
+	public static Employee getInstance () {
+		if (employee == null) {
+			employee = new Employee("Marcos Di Filippo", "1234567", 18);
+		}
+		
+		return employee;
+	}
+
+	@Override
+	public boolean isCustomer() {
+		
+		return false;
+	}
+	
+	public void createPet () { 
+		VetClinic clinic = VetClinic.getInstance();
+		
+		try {
+			String specie = (String) JOptionPane.showInputDialog(null, "Elija la especie del animal", "Especies animales", 0, null, Pet.species(), employee);
+			
+			if (!clinic.hasSpecie(specie)) {
+				throw new PetException("La especie ingresada no esta cargada en el sistema");
+			}
+			
+			String animal = JOptionPane.showInputDialog("Ingrese que animal es la mascota");
+			
+			if (animal.isEmpty()) {
+				throw new PetException("El animal es obligatorio");
+			}
+			
+			String name = JOptionPane.showInputDialog("Ingresa el nombre de la mascota");
+			
+			if (!Pet.isValidName(name)) {
+				throw new PetException("El nombre de la mascota es obligatorio");
+			}
+			
+			String weight = JOptionPane.showInputDialog("Ingrese el peso de la mascota");
+			
+			if (!Pet.isValidWeight(weight)) {
+				throw new PetException("El peso de la mascota no es valido");
+			}
+			
+			String year = JOptionPane.showInputDialog("Ingrese el año de nacimiento de la mascota");
+			
+			String month = JOptionPane.showInputDialog("Ingrese el mes de nacimiento de la mascota");
+			
+			String day = JOptionPane.showInputDialog("Ingrese el dia de nacimiento de la mascota");
+				
+			boolean isValidBirthDate = DateValidator.isValidBirthDate(year, month, day);
+			
+			if (!isValidBirthDate) {
+				throw new DateException("La fecha de nacimiento ingresada no es valida");
+			}
+			
+			Pet pet = Pet.createPetBySpecie(
+					specie, 
+					animal,
+					name, 
+					LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), 
+					Double.parseDouble(weight));
+		
+			clinic.getPets().add(pet);
+		}
+		catch (PetException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		catch (DateException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al ingresar la mascota.");
+		}
+	}
+	
+	public static String[] generalOptions () {
+		String [] options = {"Realizar Adopción", "Ingresar Mascota", "Ver Adopciones", "Ver Mascotas Sin Dueño", "Ver Clientes", "Salir"};
+		
+		return options;
+	}
+}
