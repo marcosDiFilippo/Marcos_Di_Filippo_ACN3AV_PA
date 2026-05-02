@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 public class Mammal extends Pet {
 
+	public Mammal() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Mammal(String animal, String name, LocalDate birthDate, double weight) {
 		super(animal, name, birthDate, weight);
 	}
@@ -26,5 +30,21 @@ public class Mammal extends Pet {
 	           "- Afecto: Brindar tiempo de calidad y estimulación mental para su bienestar emocional.";
 	}
 	
-	
+	@Override
+	public String[] getAnimals() {
+		String [] animals = {
+			    "Perro",
+			    "Gato",
+			    "Conejo",
+			    "Cobayo",
+			    "Hámster",
+			    "Hurón",
+			    "Chinchilla",
+			    "Carpincho",
+			    "Guanaco",
+			    "Erizo"
+			};
+		
+		return animals;
+	}
 }

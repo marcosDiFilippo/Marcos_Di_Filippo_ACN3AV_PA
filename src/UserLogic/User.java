@@ -2,13 +2,13 @@ package UserLogic;
 
 public abstract class User {
 	protected String name;
-	protected String dni;
 	protected int age;
+	protected String address;
 
-    public User(String name, String dni, int age) {
+    public User(String name, int age, String address) {
         this.name = name;
-        this.dni = dni;
         this.age = age;
+        this.address = address;
     }
 
     public String getName() {
@@ -18,14 +18,6 @@ public abstract class User {
     public void setName(String name) {
         this.name = name;
     }
-    
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
 	
 	public int getAge() {
 		return age;
@@ -33,6 +25,14 @@ public abstract class User {
 	
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
     public abstract boolean isCustomer();

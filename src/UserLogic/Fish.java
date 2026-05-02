@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 public class Fish extends Pet {
 
+	public Fish() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Fish(String animal, String name, LocalDate birthDate, double weight) {
 		super(animal, name, birthDate, weight);
 	}
@@ -24,5 +28,23 @@ public class Fish extends Pet {
 	           "- Mantenimiento: Realizar cambios parciales de agua (20-30%) semanalmente, nunca el 100%.\n" +
 	           "- Acondicionamiento: Utilizar siempre un anticloro al añadir agua nueva para proteger sus branquias.\n" +
 	           "- Compatibilidad: Asegurarse de que las especies convivientes tengan temperamentos y requisitos similares.";
+	}
+	
+	@Override
+	public String[] getAnimals() {
+		String [] animals = {
+			    "Pejerrey",
+			    "Dorado",
+			    "Surubí",
+			    "Boga",
+			    "Tararira",
+			    "Pacú",
+			    "Madrecita",
+			    "Corvina",
+			    "Vieja del agua",
+			    "Mojarra"
+			};
+		
+		return animals;
 	}
 }

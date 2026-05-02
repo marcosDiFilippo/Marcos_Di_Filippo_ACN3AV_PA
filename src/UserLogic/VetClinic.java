@@ -2,9 +2,7 @@ package UserLogic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
@@ -13,16 +11,12 @@ public class VetClinic {
 	private static VetClinic vetClinic;
 	private String nameClinic;
 	
-	private Map<String, User> users;
-	private Map<String, Customer> customers;
 	private ArrayList <Adoption> adoptions;
 	private Set <String> species; 
 	private ArrayList <Pet> pets;
 	
 	private VetClinic (String nameClinic) {
 		this.nameClinic = nameClinic;
-		this.users = new HashMap<>();
-		this.customers = new HashMap<>();
 		this.species = new HashSet<String>(Arrays.asList("Mamifero", "Ave", "Pez")); 
 		this.pets = new ArrayList<Pet>();
 		this.adoptions = new ArrayList<Adoption>();
@@ -58,10 +52,6 @@ public class VetClinic {
 	}
 	
 	public String[] getNamesPets () {
-		if (!hasPets()) {
-			
-		}
-		
 		String[] names = new String[pets.size()];
 		
 		for (int i = 0; i < pets.size(); i++) {
@@ -94,14 +84,6 @@ public class VetClinic {
 		return adoptions.size() > 0;
 	}
 	
-	public boolean existsUserWithDni (String dni) {
-		return this.users.containsKey(dni);
-	}
-	
-	public void addCustomer (Customer customer) {
-		this.customers.put(customer.dni, customer);
-	}
-	
 	public void removePet (Pet pet) {
 		this.pets.remove(pet);
 	}
@@ -120,22 +102,6 @@ public class VetClinic {
 
 	public void setNameClinic(String nameClinic) {
 		this.nameClinic = nameClinic;
-	}
-
-	public Map<String, User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Map<String, User> users) {
-		this.users = users;
-	}
-
-	public Map<String, Customer> getCustomers() {
-		return customers;
-	}
-
-	public void setCustomers(Map<String, Customer> customers) {
-		this.customers = customers;
 	}
 
 	public ArrayList<Adoption> getAdoptions() {

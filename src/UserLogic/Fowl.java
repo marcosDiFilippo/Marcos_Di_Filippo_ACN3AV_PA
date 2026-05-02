@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 public class Fowl extends Pet {
 
+	public Fowl() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Fowl(String animal, String name, LocalDate birthDate, double weight) {
 		super(animal, name, birthDate, weight);
 	}
@@ -24,5 +28,23 @@ public class Fowl extends Pet {
 	           "- Salud: Observar el estado del plumaje y la vitalidad; las aves suelen ocultar signos de enfermedad.\n" +
 	           "- Baño: Proporcionar una bañera pequeña o atomizaciones con agua para mantener la calidad de las plumas.\n" +
 	           "- Socialización: Necesitan interacción diaria y juguetes para picotear, evitando el aburrimiento y el picaje.";
+	}
+	
+	@Override
+	public String[] getAnimals() {
+		String[] animals = {
+			    "Cotorra argentina",
+			    "Hornero",
+			    "Calandria",
+			    "Cardenal",
+			    "Zorzal",
+			    "Benteveo",
+			    "Loro hablador",
+			    "Canario",
+			    "Cacatúa ninfa",
+			    "Agapornis"
+			};
+		
+		return animals;
 	}
 }

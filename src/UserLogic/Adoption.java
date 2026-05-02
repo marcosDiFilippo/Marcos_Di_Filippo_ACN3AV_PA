@@ -24,34 +24,54 @@ public class Adoption implements Ticket {
 		
 		Employee employee = Employee.getInstance();
 		
-		try {
-			String[] namesPets = clinic.getNamesPets();
-			
-			int index = JOptionPane.showOptionDialog(null, "Elija una mascota para la adopcion", null, 0, 0, null, namesPets, namesPets);
-			
-			Pet pet = clinic.getPets().get(index);
-			
-			Customer customer = Customer.create();
-			
-			Adoption adoption = new Adoption(LocalDate.now(), employee, customer, pet);
-			
-			JOptionPane.showMessageDialog(null, adoption.getTicket());
-			
-			clinic.removePet(pet);
-			
-			clinic.addAdoption(adoption);
-		} 
-		catch (UserException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Ha ocurrido un error en el sistema");
-		}
+		int chosenOption = 0;
 		
-	}
-	
-	public static void getAllTickets () {
-		
+		do {
+			boolean wasCreated = false;
+
+			try {
+				String[] namesPets = clinic.getNamesPets();
+				
+				int index = JOptionPane.showOptionDialog(null, "Elija una mascota para la adopcion", null, 0, 0, null, namesPets, namesPets);
+				
+				Pet pet = clinic.getPets().get(index);
+				
+				Customer customer = Customer.create();
+				
+				Adoption adoption = new Adoption(LocalDate.now(), employee, customer, pet);
+				
+				clinic.removePet(pet);
+				
+				clinic.addAdoption(adoption);
+				
+				wasCreated = true;
+				
+				String ticket = adoption.getTicket();
+			
+				ticket += "-----------------------------------------------------------------------------------------------------------------------\n";
+				
+				ticket += adoption.getPet().getRecommendations();
+				
+				JOptionPane.showMessageDialog(null, ticket);
+			} 
+			catch (UserException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Ha ocurrido un error en el sistema");
+			}
+			finally {
+				if (wasCreated) {					
+					break;
+				}
+				chosenOption = JOptionPane.showConfirmDialog(
+					null, 
+					"¿Desea cancelar la adopcion?", 
+					"Confirmación", 
+					JOptionPane.YES_NO_OPTION
+				);
+			}
+		} while (chosenOption == JOptionPane.NO_OPTION);
 	}
 	
 	@Override
@@ -67,5 +87,9 @@ public class Adoption implements Ticket {
 	    ticket += "Mascota Adoptada: " + (this.pet != null ? this.pet.getName() : "Desconocida") + "\n";
 	    
 	    return ticket;
+	}
+	
+	public Pet getPet() {
+		return pet;
 	}
 }

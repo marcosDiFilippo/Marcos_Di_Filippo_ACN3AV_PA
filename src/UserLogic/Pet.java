@@ -8,6 +8,10 @@ public abstract class Pet {
 	protected LocalDate birthDate;
 	protected double weight;
 	
+	public Pet() {
+		// TODO Auto-generated constructor stub
+	}
+	
     public Pet(String animal, String name, LocalDate birthDate, double weight) {
         this.animal = animal;
     	this.name = name;
@@ -73,6 +77,28 @@ public abstract class Pet {
     	return pet;
     }
     
+    public static String[] getAnimalsBySpecie (String specie) {
+    	Pet pet = null;
+    	
+    	switch (specie.toLowerCase()) {
+		case "mamifero":
+			pet = new Mammal();
+			break;
+		case "ave":
+			pet = new Fowl();
+			break;
+			
+		case "pez":
+			pet = new Fish();
+			break;
+		default:
+			
+			break;			
+    	}
+    	
+    	return pet.getAnimals();
+    }
+    
     public static String[] species () {
     	String [] species = {"Mamifero", "Ave", "Pez"};
  
@@ -93,7 +119,15 @@ public abstract class Pet {
 		}
 		
 		for (int i = 0; i < weight.length(); i++) {
-			if (!Character.isDigit(weight.charAt(i))) {
+			Character character = weight.charAt(i);
+			
+			if (character.equals('.')) {
+				continue;
+			}
+			if (character.equals(',')) {
+				continue;
+			}
+			if (!Character.isDigit(character)) {
 				return false;
 			}
 		}
@@ -104,7 +138,10 @@ public abstract class Pet {
 	@Override
 	public String toString() {
 		return "Nombre: " + name + 
+				"\nAnimal: " + animal +
 				"\nFecha de nacimiento: " + birthDate + 
 				"\nPeso: " + weight + "\n------------------------------------------------------------";
 	}
+	
+	public abstract String[] getAnimals ();
 }

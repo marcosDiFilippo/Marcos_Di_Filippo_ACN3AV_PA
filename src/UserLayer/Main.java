@@ -30,13 +30,9 @@ public class Main {
 		
 		Employee employee = Employee.getInstance();
 		
-		clinic.getUsers().put(employee.getDni(), employee);
-		
 		do {
 			optionEmployee = JOptionPane.showOptionDialog(null, 
 					"Bienvenido " + employee.getName() + "!", "Veterinaria", 0, 0, null, Employee.generalOptions(), null);
-			
-			System.out.println(optionEmployee);
 			
 			switch (optionEmployee) {
 			case Employee.REALIZAR_ADOPCION:
