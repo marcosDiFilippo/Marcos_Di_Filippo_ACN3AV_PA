@@ -125,7 +125,7 @@ public abstract class Pet {
 				continue;
 			}
 			if (character.equals(',')) {
-				continue;
+				return false;
 			}
 			if (!Character.isDigit(character)) {
 				return false;

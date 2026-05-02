@@ -51,9 +51,6 @@ public class Main {
 				
 				clinic.showPets();
 				break;
-			case Employee.VER_CLIENTES:
-				
-				break;
 			case Employee.SALIR:
 				break;
 			default:

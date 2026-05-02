@@ -18,10 +18,8 @@ public class Employee extends User {
 	public static final int VER_ADOPCIONES = 2;
 	
 	public static final int MASCOTAS_SIN_DUEÑO = 3;
-	
-	public static final int VER_CLIENTES = 4;
 
-	public static final int SALIR = 5;
+	public static final int SALIR = 4;
 	
 	public Employee(String name, int age, String address) {
 		super(name, age, address);
@@ -131,7 +129,7 @@ public class Employee extends User {
 	}
 	
 	public static String[] generalOptions () {
-		String [] options = {"Realizar Adopción", "Ingresar Mascota", "Ver Adopciones", "Ver Mascotas Sin Dueño", "Ver Clientes", "Salir"};
+		String [] options = {"Realizar Adopción", "Ingresar Mascota", "Ver Adopciones", "Ver Mascotas Sin Dueño", "Salir"};
 		
 		return options;
 	}
