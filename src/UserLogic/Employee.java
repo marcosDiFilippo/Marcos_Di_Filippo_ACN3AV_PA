@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import Exceptions.DateException;
 import Exceptions.PetException;
+import Exceptions.UserException;
 
 public class Employee extends User {
 	
@@ -33,13 +34,53 @@ public class Employee extends User {
 		return employee;
 	}
 	private static Employee createEmployee () {
-		String name = JOptionPane.showInputDialog("Ingrese el nombre del empleado");
+		Employee employee = null;
 		
-		String edad = JOptionPane.showInputDialog("Ingrese su edad");
+		boolean isValidEmployee;
 		
-		String address = JOptionPane.showInputDialog("Ingrese su direccion");
+		do { 
+			isValidEmployee = false;
+
+			try {			
+				String name = JOptionPane.showInputDialog("Ingrese su nombre");
+				
+				if (name.isEmpty()) {
+					throw new UserException("El nombre del empleado es obligatorio");
+				}
+				
+				String edad = JOptionPane.showInputDialog("Ingrese su edad");
+				
+				if (edad.isEmpty()) {
+					throw new UserException("La edad del empleado es obligatoria");
+				}
+				
+				if (Integer.parseInt(edad) < 0 ) {
+					throw new UserException("La edad del empleado no puede ser negativa");
+				}
+
+				String address = JOptionPane.showInputDialog("Ingrese su direccion");
+				
+				if (address.isEmpty()) {
+					throw new UserException("La direccion del empleado es obligatoria");
+				}
+				
+				employee = new Employee(name, Integer.parseInt(edad), address);
+			
+				isValidEmployee = true;
+			} 
+			catch (UserException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "La edad ingresada no es valida");
+			}
+			catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Ha ocurrido un error al ingresar los datos del empleado");
+			}
+		}
+		while (!isValidEmployee);
 		
-		return new Employee(name, Integer.parseInt(edad), address);
+		return employee;
 	}
 	
 	@Override
