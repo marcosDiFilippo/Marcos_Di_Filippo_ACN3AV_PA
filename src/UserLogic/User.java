@@ -3,12 +3,10 @@ package UserLogic;
 public abstract class User {
 	protected String name;
 	protected int age;
-	protected String address;
 
-    public User(String name, int age, String address) {
+    public User(String name, int age) {
         this.name = name;
         this.age = age;
-        this.address = address;
     }
 
     public String getName() {
@@ -26,14 +24,4 @@ public abstract class User {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	public String getAddress() {
-		return address;
-	}
-	
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-    public abstract boolean isCustomer();
 }

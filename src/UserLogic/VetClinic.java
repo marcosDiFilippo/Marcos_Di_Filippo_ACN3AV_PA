@@ -24,7 +24,7 @@ public class VetClinic {
 	
 	public static VetClinic getInstance () {
 		if (vetClinic == null) {
-			vetClinic = new VetClinic("Veterinaria Di Filippo");
+			vetClinic = new VetClinic("Veterinaria");
 		}
 		return vetClinic;
 	}
@@ -86,14 +86,6 @@ public class VetClinic {
 	
 	public void removePet (Pet pet) {
 		this.pets.remove(pet);
-	}
-
-	public static VetClinic getVetClinic() {
-		return vetClinic;
-	}
-
-	public static void setVetClinic(VetClinic vetClinic) {
-		VetClinic.vetClinic = vetClinic;
 	}
 
 	public String getNameClinic() {

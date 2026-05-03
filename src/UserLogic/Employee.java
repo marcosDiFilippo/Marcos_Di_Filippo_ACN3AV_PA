@@ -20,10 +20,15 @@ public class Employee extends User {
 	
 	public static final int MASCOTAS_SIN_DUEÑO = 3;
 
-	public static final int SALIR = 4;
+	public static final int VER_PERFIL = 4;
 	
-	public Employee(String name, int age, String address) {
-		super(name, age, address);
+	public static final int SALIR = 5;
+	
+	private String position;
+	
+	public Employee(String name, int age, String position) {
+		super(name, age);
+		this.position = position;
 	}
 
 	public static Employee getInstance () {
@@ -33,6 +38,8 @@ public class Employee extends User {
 		
 		return employee;
 	}
+	
+	//privado para evitar crear desde afuera
 	private static Employee createEmployee () {
 		Employee employee = null;
 		
@@ -42,13 +49,13 @@ public class Employee extends User {
 			isValidEmployee = false;
 
 			try {			
-				String name = JOptionPane.showInputDialog("Ingrese su nombre");
+				String name = JOptionPane.showInputDialog("Ingrese el nombre del empleado");
 				
 				if (name.isEmpty()) {
 					throw new UserException("El nombre del empleado es obligatorio");
 				}
 				
-				String edad = JOptionPane.showInputDialog("Ingrese su edad");
+				String edad = JOptionPane.showInputDialog("Ingrese la edad del empleado");
 				
 				if (edad.isEmpty()) {
 					throw new UserException("La edad del empleado es obligatoria");
@@ -57,14 +64,18 @@ public class Employee extends User {
 				if (Integer.parseInt(edad) < 0 ) {
 					throw new UserException("La edad del empleado no puede ser negativa");
 				}
-
-				String address = JOptionPane.showInputDialog("Ingrese su direccion");
 				
-				if (address.isEmpty()) {
-					throw new UserException("La direccion del empleado es obligatoria");
+				if (Integer.parseInt(edad) > 100) {
+					throw new UserException("La edad del empleado no es valida");
+				}
+
+				String position = JOptionPane.showInputDialog("Ingrese el cargo del empleado");
+				
+				if (position.isEmpty()) {
+					throw new UserException("El cargo del empleado es obligatoria");
 				}
 				
-				employee = new Employee(name, Integer.parseInt(edad), address);
+				employee = new Employee(name, Integer.parseInt(edad), position);
 			
 				isValidEmployee = true;
 			} 
@@ -81,12 +92,6 @@ public class Employee extends User {
 		while (!isValidEmployee);
 		
 		return employee;
-	}
-	
-	@Override
-	public boolean isCustomer() {
-		
-		return false;
 	}
 	
 	public void createPet () { 
@@ -178,9 +183,31 @@ public class Employee extends User {
 		} while (chosenOption == JOptionPane.NO_OPTION);
 	}
 	
-	public static String[] generalOptions () {
-		String [] options = {"Realizar Adopción", "Ingresar Mascota", "Ver Adopciones", "Ver Mascotas Sin Dueño", "Salir"};
+	public String[] generalOptions () {
+		String [] options = {"Realizar Adopción", "Ingresar Mascota", "Ver Adopciones", "Ver Mascotas Sin Dueño", "Ver Perfil", "Salir"};
 		
 		return options;
+	}
+	
+	public String profile () {
+		VetClinic clinic = VetClinic.getInstance();
+		
+		String message = "----- Empleado -----\n";
+		
+		message += "Nombre: " + this.name + "\n";
+		message += "Edad: " + this.age + "\n";
+		message += "Cargo: " + this.position + "\n\n";
+		
+		message += "Cantidad de mascotas dadas en adopción: " + clinic.getAdoptions().size();
+		
+		return message;
+	}
+	
+	public String getPosition() {
+		return position;
+	}
+	
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

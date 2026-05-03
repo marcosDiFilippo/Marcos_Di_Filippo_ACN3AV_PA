@@ -5,15 +5,12 @@ import javax.swing.JOptionPane;
 import Exceptions.UserException;
 
 public class Customer extends User {
+	
+	private String address;
 
 	public Customer(String name, int age, String address) {
-		super(name, age, address);
-	}
-
-	@Override
-	public boolean isCustomer() {
-		
-		return true;
+		super(name, age);
+		this.address = address;
 	}
 	
 	public static Customer create () throws UserException {
@@ -56,5 +53,13 @@ public class Customer extends User {
 				throw new UserException("El campo " + field + " no puede contener letras ni caracteres especiales");
 			}
 		}
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

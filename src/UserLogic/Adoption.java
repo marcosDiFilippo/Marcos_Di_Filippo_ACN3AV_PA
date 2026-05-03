@@ -48,9 +48,9 @@ public class Adoption implements Ticket {
 				
 				String ticket = adoption.getTicket();
 			
-				ticket += "-----------------------------------------------------------------------------------------------------------------------\n";
+				ticket += "---------------------------------------------------------------------------------------\n";
 				
-				ticket += adoption.getPet().getRecommendations();
+				ticket += adoption.pet.getRecommendations();
 				
 				JOptionPane.showMessageDialog(null, ticket);
 			} 
@@ -74,22 +74,61 @@ public class Adoption implements Ticket {
 		} while (chosenOption == JOptionPane.NO_OPTION);
 	}
 	
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+
 	@Override
 	public String getTicket() {
 	    String ticket = "----- TICKET DE ADOPCIÓN -----\n";
 	    
-	    ticket += "Fecha: " + this.date + "\n";
-	    
-	    ticket += "Empleado: " + (this.employee != null ? this.employee.getName() : "Desconocido") + "\n";
-	    
-	    ticket += "Cliente: " + (this.customer != null ? this.customer.getName() : "Desconocido") + "\n";
-	    
-	    ticket += "Mascota Adoptada: " + (this.pet != null ? this.pet.getName() : "Desconocida") + "\n";
+	    ticket += this.toString();
 	    
 	    return ticket;
 	}
 	
-	public Pet getPet() {
-		return pet;
+	@Override
+	public String toString() {
+		return "Fecha: " + this.date + "\n\n" +
+	    "Datos del Adoptante: \n" +
+	    "Nombre: " + (this.customer != null ? this.customer.getName() : "Desconocido") + "\n" +
+	    "Edad: " + (this.customer != null ? this.customer.getAge() : "Desconocido") + "\n" +
+	    "Dirección: " + (this.customer != null ? this.customer.getAddress() : "Desconocido") + "\n\n" +
+	    
+	    "Datos de la mascota: \n" +
+	    "Mascota: " + (this.pet != null ? this.pet.getAnimal() : "Desconocida") + "\n" +
+	    "Nombre: " + (this.pet != null ? this.pet.getName() : "Desconocida") + "\n" +
+	    "Peso: " + (this.pet != null ? this.pet.getWeight() : "Desconocida") + "\n" +
+	    "Especie: " + (this.pet != null ? this.pet.getSpecie() : "Desconocida") + "\n" +
+	    "Fecha de nacimiento: " + (this.pet != null ? this.pet.getBirthDate() : "Desconocida") + "\n\n" +
+
+	    "Datos del empleado: \n" +
+	    "Nombre: " + (this.employee != null ? this.employee.getName() : "Desconocido") + "\n" +
+	    "Edad: " + (this.employee != null ? this.employee.getAge() : "Desconocido") + "\n" +
+		"Cargo: " + (this.employee != null ? this.employee.getPosition() : "Desconocido") + "\n\n";
 	}
 }

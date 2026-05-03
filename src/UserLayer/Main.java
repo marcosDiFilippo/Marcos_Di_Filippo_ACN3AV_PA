@@ -14,6 +14,7 @@ import UserLogic.VetClinic;
 public class Main {
 	public static void main(String[] args) {
 		
+		//aplique singleton en la veterinaria
 		VetClinic clinic = VetClinic.getInstance();
 			
 		clinic.getPets().add(new Mammal("Gato", "Luna", LocalDate.of(2018, 5, 15), 24.5));
@@ -24,15 +25,16 @@ public class Main {
 
 		clinic.getPets().add(new Fish("Bagre", "Nemo", LocalDate.of(2023, 1, 3), 0.15));
 		
-		JOptionPane.showMessageDialog(null, "Bienvenido a " + clinic.getNameClinic());
+		JOptionPane.showMessageDialog(null, "Bienvenido a la " + clinic.getNameClinic());
 		
 		int optionEmployee = 0;
 		
+		//dentro de getinstance se registran datos del empleado manualmente
 		Employee employee = Employee.getInstance();
 		
 		do {
 			optionEmployee = JOptionPane.showOptionDialog(null, 
-					"Bienvenido " + employee.getName() + "!", "Veterinaria", 0, 0, null, Employee.generalOptions(), null);
+					"Bienvenido " + employee.getName() + "!", "Veterinaria", 0, 0, null, employee.generalOptions(), null);
 			
 			switch (optionEmployee) {
 			case Employee.REALIZAR_ADOPCION:
@@ -50,6 +52,10 @@ public class Main {
 			case Employee.MASCOTAS_SIN_DUEÑO:
 				
 				clinic.showPets();
+				break;
+			case Employee.VER_PERFIL:
+				
+				JOptionPane.showMessageDialog(null, employee.profile());
 				break;
 			case Employee.SALIR:
 				break;
