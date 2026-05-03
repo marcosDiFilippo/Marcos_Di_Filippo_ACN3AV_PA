@@ -27,12 +27,21 @@ public class Employee extends User {
 
 	public static Employee getInstance () {
 		if (employee == null) {
-			employee = new Employee("Marcos Di Filippo", 18, "Av. San Juan 653");
+			employee = createEmployee();
 		}
 		
 		return employee;
 	}
-
+	private static Employee createEmployee () {
+		String name = JOptionPane.showInputDialog("Ingrese el nombre del empleado");
+		
+		String edad = JOptionPane.showInputDialog("Ingrese su edad");
+		
+		String address = JOptionPane.showInputDialog("Ingrese su direccion");
+		
+		return new Employee(name, Integer.parseInt(edad), address);
+	}
+	
 	@Override
 	public boolean isCustomer() {
 		
