@@ -21,7 +21,7 @@ public class Main {
 
 		clinic.getPets().add(new Mammal("Perro", "Rocky", LocalDate.now(), 0.8));
 
-		clinic.getPets().add(new Fowl("Pajaro", "Paco", LocalDate.of(2021, 10, 10), 1.2));
+		clinic.getPets().add(new Fowl("Horne", "Paco", LocalDate.of(2021, 10, 10), 1.2));
 
 		clinic.getPets().add(new Fish("Bagre", "Nemo", LocalDate.of(2023, 1, 3), 0.15));
 		
@@ -47,7 +47,7 @@ public class Main {
 				break;
 			case Employee.VER_ADOPCIONES:
 				
-				JOptionPane.showMessageDialog(null, clinic.showAdoptions());
+				clinic.showAdoptions();
 				break;
 			case Employee.MASCOTAS_SIN_DUEÑO:
 				
@@ -55,7 +55,7 @@ public class Main {
 				break;
 			case Employee.VER_PERFIL:
 				
-				JOptionPane.showMessageDialog(null, employee.profile());
+				employee.showProfile();
 				break;
 			case Employee.SALIR:
 				break;

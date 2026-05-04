@@ -65,7 +65,6 @@ public abstract class Pet {
 		case "ave":
 			pet = new Fowl(animal, name, birthDate, weight);
 			break;
-			
 		case "pez":
 			pet = new Fish(animal, name, birthDate, weight);
 			break;

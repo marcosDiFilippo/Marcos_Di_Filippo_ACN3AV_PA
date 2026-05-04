@@ -142,7 +142,7 @@ public class Employee extends User {
 				
 				String day = JOptionPane.showInputDialog("Ingrese el dia de nacimiento de la mascota");
 					
-				boolean isValidBirthDate = DateValidator.isValidBirthDate(year, month, day);
+				boolean isValidBirthDate = isValidBirthDate(year, month, day);
 				
 				if (!isValidBirthDate) {
 					throw new DateException("La fecha de nacimiento ingresada no es valida");
@@ -189,18 +189,64 @@ public class Employee extends User {
 		return options;
 	}
 	
-	public String profile () {
-		VetClinic clinic = VetClinic.getInstance();
+	public void showProfile () {
+		try {
+			VetClinic clinic = VetClinic.getInstance();
+			
+			String message = "----- Empleado -----\n";
+			
+			message += "Nombre: " + this.name + "\n";
+			message += "Edad: " + this.age + "\n";
+			message += "Cargo: " + this.position + "\n\n";
+			
+			message += "Cantidad de mascotas dadas en adopción: " + clinic.getAdoptions().size();
+			
+			JOptionPane.showMessageDialog(null, message);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener datos del empleado");
+		}
+	}
+	
+	public static boolean isValidBirthDate (String year, String month, String day) {
+		if (!isValidFormatDate(year, month, day)) {
+			return false;
+		}
 		
-		String message = "----- Empleado -----\n";
+		LocalDate date = LocalDate.of(
+				Integer.parseInt(year), 
+				Integer.parseInt(month), 
+	Integer.parseInt(day)
+			);
 		
-		message += "Nombre: " + this.name + "\n";
-		message += "Edad: " + this.age + "\n";
-		message += "Cargo: " + this.position + "\n\n";
+		if (date.isAfter(LocalDate.now())) {
+			return false;
+		}
 		
-		message += "Cantidad de mascotas dadas en adopción: " + clinic.getAdoptions().size();
+		return true;
+	}
+	
+	public static boolean isValidFormatDate (String year, String month, String day) {
+		String[] data = {year, month, day};
 		
-		return message;
+		for (String string : data) {
+			if (!hasNumber(string)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static boolean hasNumber (String string) {
+		try {
+	        Integer.parseInt(string);
+	        
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    } catch (Exception e) {
+			return false;
+		}
 	}
 	
 	public String getPosition() {

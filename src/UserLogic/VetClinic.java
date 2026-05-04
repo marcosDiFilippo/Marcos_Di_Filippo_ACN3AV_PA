@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import Exceptions.AdoptionException;
+import Exceptions.PetException;
+
 public class VetClinic {
 	private static VetClinic vetClinic;
 	private String nameClinic;
@@ -29,18 +32,27 @@ public class VetClinic {
 		return vetClinic;
 	}
 	
-	public String showAdoptions () {
-		if (!hasAdoptions()) {
-			return "No se ha realizado ninguna adopción";
+	public void showAdoptions () {
+		try {
+			if (!hasAdoptions()) {
+				throw new AdoptionException("No se ha realizado ninguna adopción");
+			}
+			
+			String message = "--- ADOPCIONES ---\n\n";
+			
+			for (Adoption adoption : adoptions) {
+				message += adoption.getResume() + "\n";
+				message += "-----------------------------------------------";
+			}
+			
+			JOptionPane.showMessageDialog(null, message);
+		} 
+		catch (AdoptionException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		
-		String message = "--- ADOPCIONES ---\n\n";
-		
-		for (Adoption adoption : adoptions) {
-			message += adoption.getTicket();
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener las adopciones");
 		}
-		
-		return message;
 	}
 	
 	public void addAdoption (Adoption adoption) {
@@ -62,18 +74,25 @@ public class VetClinic {
 	}
 	
 	public void showPets () {
-		if (!hasPets()) {
-			JOptionPane.showMessageDialog(null, "No hay mascotas cargadas en el sistema!");
-			return;
+		try {
+			if (!hasPets()) {
+				throw new PetException("No hay mascotas cargadas en el sistema!");
+			}
+			
+			String message = "--- MASCOTAS SIN DUEÑO ---\n\n";
+			
+			for (Pet pet : pets) {
+				message += pet + "\n";
+			}
+			
+			JOptionPane.showMessageDialog(null, message);
+		} 
+		catch (PetException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		
-		String message = "--- MASCOTAS SIN DUEÑO ---\n\n";
-		
-		for (Pet pet : pets) {
-			message += pet + "\n";
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener las mascotas");
 		}
-		
-		JOptionPane.showMessageDialog(null, message);
 	}
 	
 	public boolean hasPets() {

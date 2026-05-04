@@ -22,6 +22,11 @@ public class Adoption implements Ticket {
 	public static void create() {
 		VetClinic clinic = VetClinic.getInstance();
 		
+		if (!clinic.hasPets()) {
+			JOptionPane.showMessageDialog(null, "No hay mascotas en el sistema");
+			return;
+		}
+		
 		Employee employee = Employee.getInstance();
 		
 		int chosenOption = 0;
@@ -109,6 +114,13 @@ public class Adoption implements Ticket {
 	    ticket += this.toString();
 	    
 	    return ticket;
+	}
+	
+	public String getResume () {
+		return "Fecha: " + this.date + "\n" +
+			"Adoptante: " + this.customer.getName() + "\n" +
+			"Mascota: " + this.pet.getName() + " - " + this.pet.getAnimal() + "\n" +
+			"Empleado: " + this.employee.getName();
 	}
 	
 	@Override
